@@ -1,7 +1,5 @@
 package com.example.myapplication.database;
 
-import android.annotation.SuppressLint;
-
 import java.util.List;
 import java.util.Random;
 
@@ -9,7 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.requery.Persistable;
-import io.requery.reactivex.ReactiveEntityStore;
+import io.requery.reactivex.ReactiveEntityStore;;
 
 @Singleton
 public class IceCreamDataStore {
@@ -19,12 +17,11 @@ public class IceCreamDataStore {
     String[] listSyrup = {"Caramelo", "Chocolate", "Morango", "Leite em Pó", "Caramelo Salgado", "Limão", "Leite Condensado", "Menta", "Marshmallow"};
     String[] listML = {"250ML", "500ML"};
 
-    @Inject
-    ReactiveEntityStore<Persistable> dataStore;
+    public ReactiveEntityStore<Persistable> dataStore;
 
     @Inject
-    public IceCreamDataStore(){
-
+    public IceCreamDataStore(ReactiveEntityStore<Persistable> dataStore){
+        this.dataStore = dataStore;
     }
 
     private IceCreamDAOEntity createIceCream(){
@@ -37,7 +34,7 @@ public class IceCreamDataStore {
         iceCreamDAOEntity.setFlavorTow(flavorTow);
         iceCreamDAOEntity.setSyrup(syrup);
         iceCreamDAOEntity.setML(listML[random.nextInt(listML.length)]);
-        iceCreamDAOEntity.setPrice(0f);
+        iceCreamDAOEntity.setPrice((float) random.nextInt(40));
         return iceCreamDAOEntity;
     }
 
@@ -48,5 +45,9 @@ public class IceCreamDataStore {
     public void insertIceCream(){
         IceCreamDAOEntity iceCreamDAOEntity = createIceCream();
         dataStore.insert(iceCreamDAOEntity).subscribe();
+    }
+
+    public void deleteIceCream(IceCreamDAOEntity iceCreamDAOEntity){
+        dataStore.delete(iceCreamDAOEntity).subscribe();
     }
 }

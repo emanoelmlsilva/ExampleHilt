@@ -1,6 +1,8 @@
 package com.example.myapplication.di;
 
 import android.content.Context;
+
+import com.example.myapplication.adapter.IceCreamAdapter;
 import com.example.myapplication.database.Models;
 
 import javax.inject.Singleton;
