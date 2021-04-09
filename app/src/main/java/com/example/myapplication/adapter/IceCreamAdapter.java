@@ -13,10 +13,12 @@ import com.example.myapplication.database.IceCreamDataStore;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+@Singleton
 public class IceCreamAdapter extends RecyclerView.Adapter<IceCreamAdapter.MyViewHolder> {
 
     List<IceCreamDAOEntity> iceCreamDAOEntityList;
@@ -39,14 +41,18 @@ public class IceCreamAdapter extends RecyclerView.Adapter<IceCreamAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         IceCreamDAOEntity iceCreamDAOEntity = iceCreamDAOEntityList.get(position);
         holder.txtFlavor.setText(iceCreamDAOEntity.getFlavorOne() +" com "+ iceCreamDAOEntity.getFlavorTow() + " e cobertura de " + iceCreamDAOEntity.getSyrup());
-        holder.txtPrice.setText(iceCreamDAOEntity.getPrice().toString());
-        holder.txtVolume.setText(iceCreamDAOEntity.getML());
+        holder.txtPrice.setText("R$ "+ iceCreamDAOEntity.getPrice());
+        holder.txtVolume.setText(iceCreamDAOEntity.getML() + "ML");
 
         holder.btnDelete.setOnClickListener(view -> {
             iceCreamDataStore.deleteIceCream(iceCreamDAOEntity);
-            this.iceCreamDAOEntityList = this.iceCreamDataStore.getListIceCream();
-            notifyDataSetChanged();
+            updateList();
         });
+    }
+
+    public void updateList(){
+        this.iceCreamDAOEntityList = this.iceCreamDataStore.getListIceCream();
+        notifyDataSetChanged();
     }
 
     @Override
@@ -67,7 +73,6 @@ public class IceCreamAdapter extends RecyclerView.Adapter<IceCreamAdapter.MyView
             txtPrice = itemView.findViewById(R.id.txtPrice);
             btnDelete = itemView.findViewById(R.id.btnDelete);
         }
-
 
     }
 }

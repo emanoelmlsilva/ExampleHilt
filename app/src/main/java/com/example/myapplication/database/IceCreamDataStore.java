@@ -24,7 +24,7 @@ public class IceCreamDataStore {
         this.dataStore = dataStore;
     }
 
-    private IceCreamDAOEntity createIceCream(){
+    public IceCreamDAOEntity createIceCream(){
         Random random = new Random();
         IceCreamDAOEntity iceCreamDAOEntity = new IceCreamDAOEntity();
         String flavorOne = listFlavorOne[random.nextInt(listFlavorOne.length)];
@@ -42,8 +42,7 @@ public class IceCreamDataStore {
         return dataStore.select(IceCreamDAOEntity.class).get().toList();
     }
 
-    public void insertIceCream(){
-        IceCreamDAOEntity iceCreamDAOEntity = createIceCream();
+    public void insertIceCream(IceCreamDAOEntity iceCreamDAOEntity){
         dataStore.insert(iceCreamDAOEntity).subscribe();
     }
 
