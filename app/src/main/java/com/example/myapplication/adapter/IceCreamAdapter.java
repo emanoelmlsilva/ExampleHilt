@@ -17,8 +17,9 @@ import javax.inject.Singleton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import dagger.hilt.android.scopes.ActivityScoped;
 
-@Singleton
+@ActivityScoped
 public class IceCreamAdapter extends RecyclerView.Adapter<IceCreamAdapter.MyViewHolder> {
 
     List<IceCreamDAOEntity> iceCreamDAOEntityList;
@@ -42,7 +43,7 @@ public class IceCreamAdapter extends RecyclerView.Adapter<IceCreamAdapter.MyView
         IceCreamDAOEntity iceCreamDAOEntity = iceCreamDAOEntityList.get(position);
         holder.txtFlavor.setText(iceCreamDAOEntity.getFlavorOne() +" com "+ iceCreamDAOEntity.getFlavorTow() + " e cobertura de " + iceCreamDAOEntity.getSyrup());
         holder.txtPrice.setText("R$ "+ iceCreamDAOEntity.getPrice());
-        holder.txtVolume.setText(iceCreamDAOEntity.getML() + "ML");
+        holder.txtVolume.setText(iceCreamDAOEntity.getML());
 
         holder.btnDelete.setOnClickListener(view -> {
             iceCreamDataStore.deleteIceCream(iceCreamDAOEntity);

@@ -72,7 +72,7 @@ public class CreateIceCreamFragment extends Fragment {
         createIceCream = iceCreamDataStore.createIceCream();
         txtFlavorInsert.setText(createIceCream.getFlavorOne() +" com "+ createIceCream.getFlavorTow() + " e cobertura de " + createIceCream.getSyrup());
         txtPriceInsert.setText("R$ " + createIceCream.getPrice());
-        txtVolumeInsert.setText(createIceCream.getML()+"ML");
+        txtVolumeInsert.setText(createIceCream.getML());
     }
     
 }
